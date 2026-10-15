@@ -133,7 +133,7 @@
 
             <div class="text-center z-10 my-auto py-6 space-y-4">
                 <div class="relative w-36 h-36 mx-auto">
-                    <img src="./pict.jpeg" alt="Foto Muhammad Arshaka Salim" class="relative w-36 h-36 rounded-full object-cover border-4 border-amber-300/80 shadow-2xl">
+                    <img src="./pict.jpeg" alt="Foto Shaka" class="relative w-36 h-36 rounded-full object-cover border-4 border-amber-300/80 shadow-2xl">
                 </div>
                 
                 <div>
@@ -176,11 +176,11 @@
                 </p>
 
                 <div class="pt-4 pb-2">
-                    <img src="./pict.jpeg" alt="Foto Muhammad Arshaka Salim" class="w-32 h-32 rounded-full border-4 border-amber-400 shadow-xl mx-auto object-cover">
+                    <img src="./pict.jpeg" alt="Foto Shaka" class="w-32 h-32 rounded-full border-4 border-amber-400 shadow-xl mx-auto object-cover">
                     <h2 class="font-script text-4xl text-amber-300 mt-4 font-bold">Muhammad Arshaka Salim</h2>
                     <p class="text-xs font-medium text-emerald-100 mt-1">(Shaka)</p>
                     <p class="text-xs font-medium text-emerald-100 mt-2">Putra dari</p>
-                    <p class="text-sm font-semibold text-amber-200">Bpk. Anwar Salim & Ibu Reza Febriana (Resa)</p>
+                    <p class="text-sm font-semibold text-amber-200">Bpk. Anwar & Ibu Reza Febriana (Resa)</p>
                 </div>
 
                 <a href="#rsvp" class="inline-block bg-amber-500 hover:bg-amber-600 text-emerald-950 font-semibold px-6 py-2.5 rounded-full text-xs shadow-md transition-all">
@@ -347,7 +347,7 @@
                             <span class="font-bold text-amber-200">Bpk. Hendra & Keluarga</span>
                             <span class="text-[10px] bg-emerald-700/60 text-emerald-200 px-2 py-0.5 rounded-full">Hadir</span>
                         </div>
-                        <p class="text-emerald-100/90 font-light">Selamat atas khitanan ananda Muhammad Arshaka Salim. Semoga tumbuh menjadi anak yang soleh dan berbakti kepada orang tua. Aamiin.</p>
+                        <p class="text-emerald-100/90 font-light">Selamat atas khitanan ananda Shaka. Semoga tumbuh menjadi anak yang soleh dan berbakti kepada orang tua. Aamiin.</p>
                         <span class="text-[9px] text-emerald-400 block text-right">10 menit yang lalu</span>
                     </div>
 
@@ -356,7 +356,7 @@
                             <span class="font-bold text-amber-200">Ustadz Rizal</span>
                             <span class="text-[10px] bg-emerald-700/60 text-emerald-200 px-2 py-0.5 rounded-full">Hadir</span>
                         </div>
-                        <p class="text-emerald-100/90 font-light">Baarakallahu fiihi. Semoga ananda Muhammad Arshaka Salim diberikan keberkahan umur dan ilmu.</p>
+                        <p class="text-emerald-100/90 font-light">Baarakallahu fiihi. Semoga ananda Shaka diberikan keberkahan umur dan ilmu.</p>
                         <span class="text-[9px] text-emerald-400 block text-right">1 jam yang lalu</span>
                     </div>
                 </div>
@@ -398,9 +398,6 @@
     </div>
 
     <script>
-        /* -------------------------------------------------------------
-           1. Dynamic Guest Name Parser
-           ------------------------------------------------------------- */
         let guestName = "Bapak/Ibu/Saudara/i";
 
         function getGuestNameFromURL() {
@@ -420,9 +417,6 @@
             }
         }
 
-        /* -------------------------------------------------------------
-           2. RSVP Form Local Data & Dynamic List Rendering
-           ------------------------------------------------------------- */
         let rsvpList = [
             {
                 nama: "Bpk. Hendra & Keluarga",
@@ -439,6 +433,9 @@
                 waktu: "1 jam yang lalu"
             }
         ];
+
+        // URL Google Apps Script jika ingin menghubungkan ke Google Sheets / Database
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOaelSiD678ntoqPZ8T7YUjdc1b5MPDrcHQAbvzQp11yKa-BCztOCVpFRUV0kJji9B/exec"; 
 
         const form = document.getElementById("rsvpForm");
         const statusText = document.getElementById("status");
@@ -458,7 +455,7 @@
         }
 
         if (form) {
-            form.addEventListener("submit", (e) => {
+            form.addEventListener("submit", async (e) => {
                 e.preventDefault();
                 const namaVal = form.elements.nama.value.trim();
                 const pesanVal = form.elements.pesan.value.trim();
@@ -470,35 +467,68 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = "Mengirim...";
 
+                const newEntry = {
+                    nama: namaVal,
+                    kehadiran: kehadiranVal,
+                    jumlah: jumlahVal,
+                    pesan: pesanVal || 'Selamat & barakallah untuk ananda Shaka!',
+                    waktu: 'Baru saja'
+                };
+
+                // Simpan secara lokal terlebih dahulu
+                rsvpList.unshift(newEntry);
+
+                // Kirim ke server backend / Google Apps Script jika URL diisi
+                if (SCRIPT_URL) {
+                    try {
+                        await fetch(SCRIPT_URL, {
+                            method: "POST",
+                            mode: "no-cors",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(newEntry)
+                        });
+                    } catch (err) {
+                        console.error("Gagal mengirim data RSVP ke server:", err);
+                    }
+                }
+
                 setTimeout(() => {
-                    const newEntry = {
-                        nama: namaVal,
-                        kehadiran: kehadiranVal,
-                        jumlah: jumlahVal,
-                        pesan: pesanVal || 'Selamat & barakallah untuk ananda Muhammad Arshaka Salim!',
-                        waktu: 'Baru saja'
-                    };
-
-                    rsvpList.unshift(newEntry);
                     renderRSVPList();
-
                     form.reset();
                     jumlah.disabled = false;
                     submitBtn.disabled = false;
                     submitBtn.textContent = "Kirim RSVP";
-
                     showToast("Konfirmasi RSVP Anda berhasil tersimpan!", "fa-circle-check");
-                }, 800);
+                }, 600);
             });
         }
 
-        function renderRSVPList() {
+        async function renderRSVPList() {
             const container = document.getElementById('ucapanContainer');
             const countEl = document.getElementById('countUcapan');
 
             if (!container) return;
 
+            // Mengambil data terbaru dari server jika SCRIPT_URL diatur
+            if (SCRIPT_URL) {
+                try {
+                    const response = await fetch(SCRIPT_URL);
+                    const json = await response.json();
+
+                    if (json.status === "success" && Array.isArray(json.data) && json.data.length > 0) {
+                        rsvpList = json.data;
+                    }
+                } catch (err) {
+                    console.error("Gagal mengambil data RSVP dari server, menggunakan data lokal:", err);
+                }
+            }
+
             if (countEl) countEl.innerText = rsvpList.length;
+
+            if (rsvpList.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-emerald-300/70 py-4">Belum ada ucapan. Jadilah yang pertama memberikan doa!</p>`;
+                return;
+            }
 
             container.innerHTML = rsvpList.map(item => `
                 <div class="bg-emerald-950/80 p-3 rounded-xl border border-emerald-800 text-xs space-y-1 transition-all hover:border-amber-500/40">
@@ -508,15 +538,12 @@
                             ${escapeHtml(item.kehadiran)} ${item.jumlah && item.jumlah !== '0' ? `(${item.jumlah} org)` : ''}
                         </span>
                     </div>
-                    <p class="text-emerald-100/90 font-light leading-relaxed">${escapeHtml(item.pesan)}</p>
-                    <span class="text-[9px] text-emerald-400 block text-right">${escapeHtml(item.waktu)}</span>
+                    ${item.pesan ? `<p class="text-emerald-100/90 font-light leading-relaxed">${escapeHtml(item.pesan)}</p>` : ''}
+                    <span class="text-[9px] text-emerald-400 block text-right">${escapeHtml(item.waktu || 'Baru saja')}</span>
                 </div>
             `).join('');
         }
 
-        /* -------------------------------------------------------------
-           3. Countdown Timer Logic
-           ------------------------------------------------------------- */
         const targetDate = new Date("2026-12-20T08:00:00+07:00");
         const countdown = document.getElementById("countdown");
 
@@ -537,17 +564,15 @@
             countdown.textContent = `${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
         }
 
-        /* -------------------------------------------------------------
-           4. Cover Animation & Ambient Audio Synth
-           ------------------------------------------------------------- */
         let isAudioPlaying = false;
         let audioContext = null;
         let intervalSynth = null;
 
         function openInvitation() {
             const cover = document.getElementById('coverScreen');
-            cover.style.transform = 'translateY(-100%)';
-            document.getElementById('musicToggle').classList.remove('hidden');
+            if (cover) cover.style.transform = 'translateY(-100%)';
+            const musicBtn = document.getElementById('musicToggle');
+            if (musicBtn) musicBtn.classList.remove('hidden');
             startSoftAmbientAudio();
         }
 
@@ -607,6 +632,7 @@
 
         function updateAudioIcon() {
             const icon = document.getElementById('musicIcon');
+            if (!icon) return;
             if (isAudioPlaying) {
                 icon.className = "fa-solid fa-music animate-bounce text-amber-300";
             } else {
@@ -614,15 +640,15 @@
             }
         }
 
-        /* -------------------------------------------------------------
-           5. Guest Link Generator & Copy Helpers
-           ------------------------------------------------------------- */
         function toggleAdminModal() {
-            document.getElementById('adminModal').classList.toggle('hidden');
+            const modal = document.getElementById('adminModal');
+            if (modal) modal.classList.toggle('hidden');
         }
 
         function generateGuestLink() {
-            const input = document.getElementById('inputNamaTamu').value.trim();
+            const inputEl = document.getElementById('inputNamaTamu');
+            if (!inputEl) return;
+            const input = inputEl.value.trim();
             if (!input) {
                 showToast("Silakan masukkan nama tamu terlebih dahulu", "fa-triangle-exclamation");
                 return;
@@ -648,7 +674,9 @@
         }
 
         function copyToClipboard(elementId, labelText) {
-            const textToCopy = document.getElementById(elementId).innerText;
+            const targetEl = document.getElementById(elementId);
+            if (!targetEl) return;
+            const textToCopy = targetEl.innerText;
             const dummy = document.createElement("input");
             document.body.appendChild(dummy);
             dummy.value = textToCopy;
@@ -661,6 +689,7 @@
 
         function showToast(message, iconClass = "fa-circle-check") {
             const toast = document.getElementById('toast');
+            if (!toast) return;
             document.getElementById('toastMsg').innerText = message;
             document.getElementById('toastIcon').className = `fa-solid ${iconClass} text-amber-400 text-sm`;
 
@@ -682,7 +711,6 @@
                 .replace(/'/g, "&#039;");
         }
 
-        /* Initial Execution */
         window.onload = function() {
             getGuestNameFromURL();
             updateCountdown();
