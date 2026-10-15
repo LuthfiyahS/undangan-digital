@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#064e3b">
-    <title>Undangan Syukuran Khitanan — Muhammad Arshaka Salim</title>
+    <title>Undangan Syukuran Khitanan — Ananda Shaka</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -74,19 +74,13 @@
     <!-- Container Utama simulasi Mobile Viewport -->
     <div class="w-full max-w-md bg-creamCustom min-h-screen relative shadow-2xl overflow-x-hidden pb-20">
 
-        <!-- Floating Admin & Tutorial Tools -->
-        <div class="fixed top-4 right-4 z-40 flex flex-col gap-2">
-            <button onclick="toggleAdminModal()" class="bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2 text-xs font-semibold" title="Buat Link Nama Tamu">
-                <i class="fa-solid fa-link text-base"></i>
-                <span class="hidden sm:inline">Buat Link Tamu</span>
-            </button>
-            <!-- <button onclick="toggleGasGuideModal()" class="bg-emerald-700 hover:bg-emerald-800 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2 text-xs font-semibold" title="Panduan Bebas CORS GAS">
-                <i class="fa-solid fa-code text-base"></i>
-                <span class="hidden sm:inline">Setup GAS CORS</span>
-            </button> -->
-        </div>
+        <!-- Floating Admin Tool Button -->
+        <button onclick="toggleAdminModal()" class="fixed top-4 right-4 z-40 bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2 text-xs font-semibold" title="Buat Link Nama Tamu">
+            <i class="fa-solid fa-link text-base"></i>
+            <span class="hidden sm:inline">Buat Link Tamu</span>
+        </button>
 
-        <!-- Modal Link Guest Generator -->
+        <!-- Admin Guest Link Modal -->
         <div id="adminModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
             <div class="bg-white rounded-2xl p-6 w-full max-w-sm shadow-2xl relative">
                 <button onclick="toggleAdminModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600">
@@ -97,7 +91,7 @@
                         <i class="fa-solid fa-user-gear"></i>
                     </div>
                     <h3 class="font-bold text-lg text-emerald-900">Generator Link Undangan</h3>
-                    <p class="text-xs text-gray-500">Buat link khusus dengan nama tamu & pesan WhatsApp otomatis</p>
+                    <p class="text-xs text-gray-500">Buat link khusus dengan nama tamu secara otomatis</p>
                 </div>
                 <div class="space-y-4">
                     <div>
@@ -126,93 +120,6 @@
             </div>
         </div>
 
-        <!-- Modal Panduan Google Apps Script CORS -->
-        <div id="gasGuideModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-            <div class="bg-white rounded-2xl p-6 w-full max-w-md max-h-[85vh] overflow-y-auto shadow-2xl relative">
-                <button onclick="toggleGasGuideModal()" class="absolute top-3 right-3 text-gray-400 hover:text-gray-600">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-                <div class="mb-4">
-                    <h3 class="font-bold text-lg text-emerald-900 flex items-center gap-2">
-                        <i class="fa-solid fa-shield-halved text-amber-500"></i>
-                        Solusi Bebas CORS Google Apps Script
-                    </h3>
-                    <p class="text-xs text-gray-500 mt-1">Gunakan kode `Code.gs` di bawah ini pada Google Sheets Anda agar tidak kena blokir CORS saat POST/GET RSVP.</p>
-                </div>
-
-                <div class="space-y-3 text-xs text-gray-700">
-                    <ol class="list-decimal pl-4 space-y-2">
-                        <li>Buka Google Sheets target Anda.</li>
-                        <li>Klik menu <b>Ekstensi</b> &gt; <b>Apps Script</b>.</li>
-                        <li>Ganti semua kode di `Code.gs` dengan kode berikut:</li>
-                    </ol>
-
-                    <div class="relative bg-slate-900 text-amber-300 p-3 rounded-lg font-mono text-[11px] overflow-x-auto">
-                        <button onclick="copyGasScript()" class="absolute top-2 right-2 bg-amber-500 text-slate-900 px-2 py-1 rounded text-[10px] font-bold hover:bg-amber-400">
-                            Copy Script
-                        </button>
-<pre id="gasScriptCode">
-function doGet(e) {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-  var rows = sheet.getDataRange().getValues();
-  var data = [];
-  
-  // Baris pertama adalah header (Nama, Kehadiran, Jumlah, Pesan, Waktu)
-  for (var i = rows.length - 1; i >= 1; i--) {
-    if (rows[i][0]) {
-      data.push({
-        nama: rows[i][0],
-        kehadiran: rows[i][1],
-        jumlah: rows[i][2],
-        pesan: rows[i][3],
-        waktu: rows[i][4] || "Baru saja"
-      });
-    }
-  }
-  
-  return ContentService
-    .createTextOutput(JSON.stringify({ status: "success", data: data }))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-  try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var postData = JSON.parse(e.postData.contents);
-    
-    var timestamp = new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" });
-    
-    sheet.appendRow([
-      postData.nama,
-      postData.kehadiran,
-      postData.jumlah,
-      postData.pesan,
-      timestamp
-    ]);
-    
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: "success", message: "RSVP berhasil tersimpan" }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-</pre>
-                    </div>
-
-                    <ol start="4" class="list-decimal pl-4 space-y-2">
-                        <li>Klik <b>Terapkan (Deploy)</b> &gt; <b>Pengujian baru / Penerapan baru (New deployment)</b>.</li>
-                        <li>Pilih Jenis: <b>Aplikasi Web (Web App)</b>.</li>
-                        <li>Jalankan sebagai: <b>Saya (Me)</b>.</li>
-                        <li>Siapa yang memiliki akses: <b>Siapa saja (Anyone)</b>. *(Sangat Penting!)*</li>
-                        <li>Klik <b>Terapkan</b>, lalu salin **URL Web App** dan tempel pada variabel `SCRIPT_URL` di JavaScript file ini.</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-
         <!-- COVER / SAMPUL UTAMA -->
         <div id="coverScreen" class="fixed inset-0 z-40 max-w-md mx-auto bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 text-white flex flex-col justify-between items-center p-8 transition-transform duration-1000 ease-in-out">
             <div class="absolute inset-4 border border-amber-400/30 rounded-2xl pointer-events-none"></div>
@@ -226,13 +133,12 @@ function doPost(e) {
 
             <div class="text-center z-10 my-auto py-6 space-y-4">
                 <div class="relative w-36 h-36 mx-auto">
-                    <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&q=80&w=400" alt="Foto Muhammad Arshaka Salim" class="relative w-36 h-36 rounded-full object-cover border-4 border-amber-300/80 shadow-2xl">
+                    <img src="./pict.jpeg" alt="Foto Anak" class="relative w-36 h-36 rounded-full object-cover border-4 border-amber-300/80 shadow-2xl">
                 </div>
                 
                 <div>
-                    <h2 class="font-script text-3xl sm:text-4xl text-amber-300 leading-tight">Muhammad Arshaka Salim</h2>
-                    <p class="text-xs text-amber-100 font-medium mt-1">(Shaka)</p>
-                    <p class="text-[11px] text-emerald-200 mt-2">Putra dari Bp. Anwar & Ibu Reza Febriana (Resa)</p>
+                    <h2 class="font-script text-4xl text-amber-300 leading-tight">Muhammad Arshaka Salim</h2>
+                    <p class="text-xs text-emerald-200 mt-1">Putra dari Bp. Anwar & Ibu Reza (Resa)</p>
                 </div>
 
                 <div class="mt-6 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 shadow-inner">
@@ -243,7 +149,7 @@ function doPost(e) {
             </div>
 
             <div class="z-10 pb-6 w-full text-center">
-                <button onclick="openInvitation()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-emerald-950 font-bold shadow-lg pulse-glow transition-all duration-300 flex items-center justify-center gap-3 text-sm">
+                <button onclick="openInvitation()" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-semibold shadow-lg pulse-glow transition-all duration-300 flex items-center justify-center gap-3 text-sm">
                     <i class="fa-solid fa-envelope-open text-base"></i>
                     Buka Undangan
                 </button>
@@ -270,11 +176,10 @@ function doPost(e) {
                 </p>
 
                 <div class="pt-4 pb-2">
-                    <img src="https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&q=80&w=400" alt="Foto Arshaka" class="w-32 h-32 rounded-full border-4 border-amber-400 shadow-xl mx-auto object-cover">
-                    <h2 class="font-script text-3xl text-amber-300 mt-4 font-bold">Muhammad Arshaka Salim</h2>
-                    <p class="text-xs font-medium text-amber-100 mt-1">(Shaka)</p>
-                    <p class="text-xs font-medium text-emerald-100 mt-3">Putra dari</p>
-                    <p class="text-sm font-semibold text-amber-200">Bpk. Anwar & Ibu Reza Febriana (Resa)</p>
+                    <img src="./pict.jpeg" alt="Foto Shaka" class="w-32 h-32 rounded-full border-4 border-amber-400 shadow-xl mx-auto object-cover">
+                    <h2 class="font-script text-4xl text-amber-300 mt-4 font-bold">Muhammad Shaka Arsa</h2>
+                    <p class="text-xs font-medium text-emerald-100 mt-1">Putra dari</p>
+                    <p class="text-sm font-semibold text-amber-200">Bpk. Anwar Salim & Ibu Reza Febriana (Resa)</p>
                 </div>
 
                 <a href="#rsvp" class="inline-block bg-amber-500 hover:bg-amber-600 text-emerald-950 font-semibold px-6 py-2.5 rounded-full text-xs shadow-md transition-all">
@@ -325,7 +230,7 @@ function doPost(e) {
                 </div>
                 <div class="text-xs text-gray-600 pt-2 border-t border-gray-100 space-y-1">
                     <p><i class="fa-regular fa-clock text-emerald-600 w-4"></i> 08.00 WIB – Selesai</p>
-                    <p><i class="fa-solid fa-location-dot text-emerald-600 w-4"></i> Seulaeurih, Purwakarta</p>
+                    <p><i class="fa-solid fa-location-dot text-emerald-600 w-4"></i> Kediaman Mempelai, Bandung</p>
                 </div>
             </div>
 
@@ -339,16 +244,16 @@ function doPost(e) {
                         <i class="fa-solid fa-utensils"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-emerald-950 text-sm">Ramah Tamah</h4>
+                        <h4 class="font-bold text-emerald-950 text-sm">Ramah Tamah / Resepsi</h4>
                         <p class="text-xs text-gray-500">Walimatul Khitan</p>
                     </div>
                 </div>
                 <div class="text-xs text-gray-600 pt-2 border-t border-gray-100 space-y-1">
                     <p><i class="fa-regular fa-clock text-amber-600 w-4"></i> 11.00 – 14.00 WIB</p>
-                    <p><i class="fa-solid fa-location-dot text-amber-600 w-4"></i> Seulaeurih, Purwakarta</p>
+                    <p><i class="fa-solid fa-location-dot text-amber-600 w-4"></i> Gedung Bahagia, Bandung</p>
                 </div>
 
-                <a href="https://maps.google.com/?q=Seulaeurih+Purwakarta" target="_blank" class="mt-3 w-full bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-2 rounded-xl text-xs flex items-center justify-center gap-2 shadow transition-all">
+                <a href="https://maps.google.com" target="_blank" class="mt-3 w-full bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-2 rounded-xl text-xs flex items-center justify-center gap-2 shadow transition-all">
                     <i class="fa-solid fa-map-location-dot"></i>
                     Buka Google Maps
                 </a>
@@ -371,7 +276,7 @@ function doPost(e) {
                     </div>
                     <p class="text-[10px] text-gray-400 uppercase">Nomor Rekening</p>
                     <p class="font-mono text-sm font-bold text-white tracking-wider my-0.5" id="rekBCA">1234 5678 90</p>
-                    <p class="text-xs text-amber-200">a.n. Anwar</p>
+                    <p class="text-xs text-amber-200">a.n. Anwar Salim</p>
                     <button onclick="copyToClipboard('rekBCA', 'Nomor Rekening BCA')" class="mt-2 w-full bg-amber-500 hover:bg-amber-600 text-emerald-950 text-xs font-semibold py-1 rounded-lg transition-all flex items-center justify-center gap-2">
                         <i class="fa-solid fa-copy"></i>
                         Salin No. Rekening
@@ -421,8 +326,8 @@ function doPost(e) {
                     <textarea id="pesan" name="pesan" maxlength="500" rows="3" placeholder="Tuliskan doa atau ucapan selamat..." class="w-full px-3 py-2 bg-emerald-900/80 border border-emerald-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
                 </div>
 
-                <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-emerald-950 font-bold py-3 rounded-lg text-sm transition-all shadow-md flex items-center justify-center gap-2">
-                    <span>Kirim RSVP</span>
+                <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-emerald-950 font-bold py-3 rounded-lg text-sm transition-all shadow-md">
+                    Kirim RSVP
                 </button>
 
                 <p id="status" role="status" aria-live="polite" class="text-xs text-amber-200 text-center font-medium mt-2 leading-relaxed min-h-[1.5rem]"></p>
@@ -432,11 +337,27 @@ function doPost(e) {
             <div class="mt-8">
                 <h4 class="text-xs font-bold text-amber-300 uppercase tracking-widest mb-3 flex items-center gap-2">
                     <i class="fa-solid fa-comments"></i>
-                    Ucapan & Doa Restu (<span id="countUcapan">0</span>)
+                    Ucapan & Doa Restu (<span id="countUcapan">2</span>)
                 </h4>
 
                 <div id="ucapanContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1">
-                    <!-- Dynamic Items loaded here -->
+                    <!-- <div class="bg-emerald-950/80 p-3 rounded-xl border border-emerald-800 text-xs space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-200">Bpk. Hendra & Keluarga</span>
+                            <span class="text-[10px] bg-emerald-700/60 text-emerald-200 px-2 py-0.5 rounded-full">Hadir</span>
+                        </div>
+                        <p class="text-emerald-100/90 font-light">Selamat atas khitanan ananda Shaka. Semoga tumbuh menjadi anak yang soleh dan berbakti kepada orang tua. Aamiin.</p>
+                        <span class="text-[9px] text-emerald-400 block text-right">10 menit yang lalu</span>
+                    </div>
+
+                    <div class="bg-emerald-950/80 p-3 rounded-xl border border-emerald-800 text-xs space-y-1">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-200">Ustadz Rizal</span>
+                            <span class="text-[10px] bg-emerald-700/60 text-emerald-200 px-2 py-0.5 rounded-full">Hadir</span>
+                        </div>
+                        <p class="text-emerald-100/90 font-light">Baarakallahu fiihi. Semoga ananda Shaka diberikan keberkahan umur dan ilmu.</p>
+                        <span class="text-[9px] text-emerald-400 block text-right">1 jam yang lalu</span>
+                    </div> -->
                 </div>
             </div>
         </section>
@@ -444,7 +365,7 @@ function doPost(e) {
         <!-- FOOTER -->
         <footer class="bg-emerald-950 text-center py-6 px-4 text-emerald-400/80 text-xs border-t border-emerald-800">
             <p class="mb-1">Terima kasih atas doa dan restunya ❤️</p>
-            <p class="font-semibold text-amber-300 mt-1">Keluarga Bpk. Anwar & Ibu Reza Febriana · 2026</p>
+            <p class="font-semibold text-amber-300 mt-1">Keluarga Bpk. Anwar Salim · 2026</p>
         </footer>
 
         <!-- BOTTOM NAV BAR -->
@@ -476,9 +397,9 @@ function doPost(e) {
     </div>
 
     <script>
-        // URL Google Apps Script Web App (Tempelkan URL deployment Anda di sini)
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOaelSiD678ntoqPZ8T7YUjdc1b5MPDrcHQAbvzQp11yKa-BCztOCVpFRUV0kJji9B/exec"; 
-
+        /* -------------------------------------------------------------
+           1. Dynamic Guest Name Logic
+           ------------------------------------------------------------- */
         let guestName = "Bapak/Ibu/Saudara/i";
 
         function getGuestNameFromURL() {
@@ -498,172 +419,96 @@ function doPost(e) {
             }
         }
 
-        // Default Data Ucapan / Local Backup
-        let rsvpList = [
-            {
-                nama: "Bpk. Hendra & Keluarga",
-                kehadiran: "Hadir",
-                jumlah: "2",
-                pesan: "Selamat atas khitanan ananda Muhammad Arshaka Salim. Semoga tumbuh menjadi anak yang soleh, cerdas, dan berbakti kepada orang tua. Aamiin.",
-                waktu: "10 menit yang lalu"
-            },
-            {
-                nama: "Ustadz Rizal",
-                kehadiran: "Hadir",
-                jumlah: "1",
-                pesan: "Baarakallahu fiihi. Semoga ananda Arshaka diberikan keberkahan umur, kesehatan, dan ilmu.",
-                waktu: "1 jam yang lalu"
-            }
-        ];
-
-        // Memuat data ucapan dari LocalStorage jika ada
-        function loadLocalData() {
-            const saved = localStorage.getItem('arshaka_rsvp_data');
-            if (saved) {
-                try {
-                    rsvpList = JSON.parse(saved);
-                } catch(e) {
-                    console.error("Gagal membaca LocalStorage:", e);
-                }
-            }
-        }
-
-        function saveLocalData() {
-            localStorage.setItem('arshaka_rsvp_data', JSON.stringify(rsvpList));
-        }
+        /* -------------------------------------------------------------
+           2. RSVP Form Submission & Google Apps Script Handling
+           ------------------------------------------------------------- */
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzOaelSiD678ntoqPZ8T7YUjdc1b5MPDrcHQAbvzQp11yKa-BCztOCVpFRUV0kJji9B/exec";
 
         const form = document.getElementById("rsvpForm");
+        const statusText = document.getElementById("status");
         const submitBtn = document.getElementById("submitBtn");
         const kehadiran = document.getElementById("kehadiran");
         const jumlah = document.getElementById("jumlah");
 
-        if (kehadiran) {
-            kehadiran.addEventListener("change", () => {
-                if (kehadiran.value === "Tidak hadir") {
-                    jumlah.value = "1";
-                    jumlah.disabled = true;
-                } else {
-                    jumlah.disabled = false;
-                }
-            });
-        }
-
-        if (form) {
-            form.addEventListener("submit", async (e) => {
-                e.preventDefault();
-                const namaVal = form.elements.nama.value.trim();
-                const pesanVal = form.elements.pesan.value.trim();
-                const kehadiranVal = kehadiran.value;
-                const jumlahVal = kehadiranVal === "Tidak hadir" ? "0" : jumlah.value;
-
-                if (!namaVal || !kehadiranVal) return;
-
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Sending...`;
-
-                const newEntry = {
-                    nama: namaVal,
-                    kehadiran: kehadiranVal,
-                    jumlah: jumlahVal,
-                    pesan: pesanVal || 'Selamat & barakallah untuk ananda Arshaka!',
-                    waktu: 'Baru saja'
-                };
-
-                let successSending = false;
-
-                // Trik Utama Penanganan CORS pada Google Apps Script:
-                // Gunakan header 'text/plain;charset=utf-8' agar browser TIDAK mengirimkan preflight OPTIONS request
-                if (SCRIPT_URL) {
-                    try {
-                        const response = await fetch(SCRIPT_URL, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "text/plain;charset=utf-8"
-                            },
-                            body: JSON.stringify(newEntry)
-                        });
-
-                        const resJson = await response.json();
-                        if (resJson && resJson.status === "success") {
-                            successSending = true;
-                        }
-                    } catch (err) {
-                        console.warn("Gagal terhubung ke GAS, menggunakan penanganan fallback lokal:", err);
-                    }
-                }
-
-                // Selalu perbarui tampilan lokal agar UI responsif seketika
-                rsvpList.unshift(newEntry);
-                saveLocalData();
-                renderRSVPListUI();
-
-                form.reset();
-                if (jumlah) jumlah.disabled = false;
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `Kirim RSVP`;
-
-                showToast("Konfirmasi RSVP Anda berhasil tersimpan!", "fa-circle-check");
-            });
-        }
-
-        // Fetch GET RSVP tanpa memicu CORS preflight
-        async function fetchRSVPData() {
-            loadLocalData();
-
-            if (!SCRIPT_URL) {
-                renderRSVPListUI();
-                return;
+        // Sesuaikan jumlah tamu dengan status kehadiran
+        kehadiran.addEventListener("change", () => {
+            if (kehadiran.value === "Tidak hadir") {
+                jumlah.value = "1";
+                jumlah.disabled = true;
+            } else {
+                jumlah.disabled = false;
             }
+        });
+
+        let totalUcapanCount = 2;
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const namaVal = form.elements.nama.value.trim();
+            const pesanVal = form.elements.pesan.value.trim();
+            const kehadiranVal = kehadiran.value;
+            const jumlahVal = kehadiranVal === "Tidak hadir" ? "0" : jumlah.value;
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Mengirim...";
+            statusText.textContent = "";
+
+            const data = new URLSearchParams({
+                nama: namaVal,
+                kehadiran: kehadiranVal,
+                jumlah: jumlahVal,
+                pesan: pesanVal
+            });
 
             try {
-                // Fetch standar GET tanpa custom headers (CORS Safe)
-                const response = await fetch(SCRIPT_URL);
-                const json = await response.json();
-
-                if (json && json.status === "success" && Array.isArray(json.data) && json.data.length > 0) {
-                    rsvpList = json.data;
-                    saveLocalData();
+                if (!SCRIPT_URL.includes("xxxxx")) {
+                    await fetch(SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        body: data
+                    });
                 }
-            } catch (err) {
-                console.warn("Gagal mengambil data dari Apps Script, menggunakan cache lokal:", err);
+
+                statusText.textContent = "Permintaan RSVP telah dikirim. Terima kasih!";
+                showToast("Konfirmasi RSVP Anda berhasil tersimpan!", "fa-circle-check");
+
+                // Sisipkan Ucapan ke Guestbook display secara otomatis
+                if (pesanVal) {
+                    const ucapanContainer = document.getElementById('ucapanContainer');
+                    const newUcapan = document.createElement('div');
+                    newUcapan.className = "bg-emerald-950/80 p-3 rounded-xl border border-amber-500/40 text-xs space-y-1";
+                    newUcapan.innerHTML = `
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-amber-200">${escapeHtml(namaVal)}</span>
+                            <span class="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full">${escapeHtml(kehadiranVal)}</span>
+                        </div>
+                        <p class="text-emerald-100/90 font-light">${escapeHtml(pesanVal)}</p>
+                        <span class="text-[9px] text-emerald-400 block text-right">Baru saja</span>
+                    `;
+                    ucapanContainer.prepend(newUcapan);
+                    totalUcapanCount++;
+                    document.getElementById('countUcapan').innerText = totalUcapanCount;
+                }
+
+                form.reset();
+                jumlah.disabled = false;
+
+            } catch (error) {
+                statusText.textContent = "Pengiriman gagal karena masalah koneksi. Silakan periksa internet dan coba lagi.";
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Kirim RSVP";
             }
+        });
 
-            renderRSVPListUI();
-        }
-
-        function renderRSVPListUI() {
-            const container = document.getElementById('ucapanContainer');
-            const countEl = document.getElementById('countUcapan');
-
-            if (!container) return;
-
-            if (countEl) countEl.innerText = rsvpList.length;
-
-            if (rsvpList.length === 0) {
-                container.innerHTML = `<p class="text-center text-xs text-emerald-300/70 py-4">Belum ada ucapan. Jadilah yang pertama memberikan doa!</p>`;
-                return;
-            }
-
-            container.innerHTML = rsvpList.map(item => `
-                <div class="bg-emerald-950/80 p-3 rounded-xl border border-emerald-800 text-xs space-y-1 transition-all hover:border-amber-500/40">
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-amber-200">${escapeHtml(item.nama)}</span>
-                        <span class="text-[10px] ${item.kehadiran === 'Hadir' ? 'bg-emerald-700/60 text-emerald-200' : 'bg-red-900/60 text-red-200'} px-2 py-0.5 rounded-full">
-                            ${escapeHtml(item.kehadiran)} ${item.jumlah && item.jumlah !== '0' ? `(${item.jumlah} org)` : ''}
-                        </span>
-                    </div>
-                    ${item.pesan ? `<p class="text-emerald-100/90 font-light leading-relaxed">${escapeHtml(item.pesan)}</p>` : ''}
-                    <span class="text-[9px] text-emerald-400 block text-right">${escapeHtml(item.waktu || 'Baru saja')}</span>
-                </div>
-            `).join('');
-        }
-
-        // COUNTDOWN TIMER
-        const targetDate = new Date("2026-12-20T08:00:00+07:00");
+        /* -------------------------------------------------------------
+           3. Countdown Timer Logic
+           ------------------------------------------------------------- */
+        const targetDate = new Date("2026-12-20T09:00:00+07:00");
         const countdown = document.getElementById("countdown");
 
         function updateCountdown() {
-            if (!countdown) return;
             const diff = targetDate.getTime() - Date.now();
 
             if (diff <= 0) {
@@ -679,16 +524,17 @@ function doPost(e) {
             countdown.textContent = `${days} hari ${hours} jam ${minutes} menit ${seconds} detik`;
         }
 
-        // AUDIO AMBIENT SYNTH (Web Audio API - Bebas hak cipta & tanpa external audio source)
+        /* -------------------------------------------------------------
+           4. Cover & Audio Synth Control
+           ------------------------------------------------------------- */
         let isAudioPlaying = false;
         let audioContext = null;
         let intervalSynth = null;
 
         function openInvitation() {
             const cover = document.getElementById('coverScreen');
-            if (cover) cover.style.transform = 'translateY(-100%)';
-            const musicBtn = document.getElementById('musicToggle');
-            if (musicBtn) musicBtn.classList.remove('hidden');
+            cover.style.transform = 'translateY(-100%)';
+            document.getElementById('musicToggle').classList.remove('hidden');
             startSoftAmbientAudio();
         }
 
@@ -711,7 +557,7 @@ function doPost(e) {
                     osc.frequency.setValueAtTime(notes[noteIdx], audioContext.currentTime);
 
                     gain.gain.setValueAtTime(0.01, audioContext.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.05, audioContext.currentTime + 0.4);
+                    gain.gain.exponentialRampToValueAtTime(0.07, audioContext.currentTime + 0.4);
                     gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 2.2);
 
                     osc.connect(gain);
@@ -721,12 +567,12 @@ function doPost(e) {
                     osc.stop(audioContext.currentTime + 2.3);
 
                     noteIdx = (noteIdx + 1) % notes.length;
-                }, 2200);
+                }, 2000);
 
                 isAudioPlaying = true;
                 updateAudioIcon();
             } catch (e) {
-                console.log("Web Audio Policy:", e);
+                console.log("Audio Web API Policy:", e);
             }
         }
 
@@ -748,29 +594,105 @@ function doPost(e) {
 
         function updateAudioIcon() {
             const icon = document.getElementById('musicIcon');
-            if (!icon) return;
             if (isAudioPlaying) {
                 icon.className = "fa-solid fa-music animate-bounce text-amber-300";
             } else {
                 icon.className = "fa-solid fa-volume-xmark text-gray-400";
             }
         }
+        function loadUcapanFromSheet() {
+    const callbackName = "rsvpCallback_" + Date.now();
+    const script = document.createElement("script");
+    let selesai = false;
 
-        // MODAL TOGGLES & UTILITIES
-        function toggleAdminModal() {
-            const modal = document.getElementById('adminModal');
-            if (modal) modal.classList.toggle('hidden');
+    function cleanup() {
+        selesai = true;
+        delete window[callbackName];
+        script.remove();
+    }
+
+    window[callbackName] = function(result) {
+        if (selesai) return;
+
+        if (!result || result.status !== "success" ||
+            !Array.isArray(result.data)) {
+            cleanup();
+            console.error("Format respons GET tidak sesuai", result);
+            return;
         }
 
-        function toggleGasGuideModal() {
-            const modal = document.getElementById('gasGuideModal');
-            if (modal) modal.classList.toggle('hidden');
+        const container = document.getElementById("ucapanContainer");
+        if (!container) {
+            cleanup();
+            return;
+        }
+
+        container.replaceChildren();
+
+        result.data.forEach(item => {
+            if (!item.pesan) return;
+
+            const card = document.createElement("div");
+            card.className =
+                "bg-emerald-950/80 p-3 rounded-xl border border-amber-500/40 text-xs space-y-1";
+
+            const header = document.createElement("div");
+            header.className = "flex justify-between items-center";
+
+            const nama = document.createElement("span");
+            nama.className = "font-bold text-amber-200";
+            nama.textContent = item.nama || "Tamu";
+
+            const status = document.createElement("span");
+            status.className =
+                "text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full";
+            status.textContent = item.kehadiran || "";
+
+            header.append(nama, status);
+
+            const pesan = document.createElement("p");
+            pesan.className = "text-emerald-100/90 font-light";
+            pesan.textContent = item.pesan;
+
+            const waktu = document.createElement("span");
+            waktu.className =
+                "text-[9px] text-emerald-400 block text-right";
+            waktu.textContent = item.waktu || "";
+
+            card.append(header, pesan, waktu);
+            container.appendChild(card);
+        });
+
+        const count = document.getElementById("countUcapan");
+        if (count) {
+            count.textContent = result.data.filter(
+                item => item.pesan
+            ).length;
+        }
+
+        cleanup();
+    };
+
+    script.onerror = function() {
+        if (selesai) return;
+        cleanup();
+        console.error("Gagal memuat data GET dari Google Apps Script");
+    };
+
+    script.src = SCRIPT_URL +
+        "?callback=" + encodeURIComponent(callbackName);
+
+    document.body.appendChild(script);
+}
+        /* -------------------------------------------------------------
+           5. Admin Link Generator & Clipboard Helpers
+           ------------------------------------------------------------- */
+        function toggleAdminModal() {
+            document.getElementById('adminModal').classList.toggle('hidden');
         }
 
         function generateGuestLink() {
-            const inputEl = document.getElementById('inputNamaTamu');
-            if (!inputEl) return;
-            const input = inputEl.value.trim();
+            const input = document.getElementById('inputNamaTamu').value.trim();
             if (!input) {
                 showToast("Silakan masukkan nama tamu terlebih dahulu", "fa-triangle-exclamation");
                 return;
@@ -781,7 +703,7 @@ function doPost(e) {
             
             document.getElementById('outputLink').value = generatedUrl;
             
-            const waText = `Assalamu'alaikum Wr. Wb.\n\nYth. *${input}*,\n\nTanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara Syukuran Khitanan putra kami:\n*Muhammad Arshaka Salim (Shaka)*\n\nBerikut link undangan digital selengkapnya:\n${generatedUrl}\n\nTerima kasih.\nWassalamu'alaikum Wr. Wb.`;
+            const waText = `Assalamu'alaikum Wr. Wb.\n\nYth. *${input}*,\n\nTanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara Syukuran Khitanan putra kami (Muhammad Arshaka Salim).\n\nBerikut link undangan digital selengkapnya:\n${generatedUrl}\n\nTerima kasih.\nWassalamu'alaikum Wr. Wb.`;
             
             document.getElementById('waShareBtn').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(waText)}`;
             document.getElementById('resultArea').classList.remove('hidden');
@@ -795,21 +717,8 @@ function doPost(e) {
             showToast("Link berhasil disalin!", "fa-copy");
         }
 
-        function copyGasScript() {
-            const code = document.getElementById('gasScriptCode').innerText;
-            const dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = code;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-            showToast("Kode Apps Script berhasil disalin!", "fa-copy");
-        }
-
         function copyToClipboard(elementId, labelText) {
-            const targetEl = document.getElementById(elementId);
-            if (!targetEl) return;
-            const textToCopy = targetEl.innerText;
+            const textToCopy = document.getElementById(elementId).innerText;
             const dummy = document.createElement("input");
             document.body.appendChild(dummy);
             dummy.value = textToCopy;
@@ -822,7 +731,6 @@ function doPost(e) {
 
         function showToast(message, iconClass = "fa-circle-check") {
             const toast = document.getElementById('toast');
-            if (!toast) return;
             document.getElementById('toastMsg').innerText = message;
             document.getElementById('toastIcon').className = `fa-solid ${iconClass} text-amber-400 text-sm`;
 
@@ -836,7 +744,7 @@ function doPost(e) {
         }
 
         function escapeHtml(text) {
-            return String(text)
+            return text
                 .replace(/&/g, "&amp;")
                 .replace(/</g, "&lt;")
                 .replace(/>/g, "&gt;")
@@ -844,11 +752,12 @@ function doPost(e) {
                 .replace(/'/g, "&#039;");
         }
 
+        /* Initial Execution */
         window.onload = function() {
             getGuestNameFromURL();
             updateCountdown();
             setInterval(updateCountdown, 1000);
-            fetchRSVPData();
+            loadUcapanFromSheet() 
         };
     </script>
 </body>
