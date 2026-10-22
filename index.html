@@ -707,7 +707,7 @@
             const outputEl = document.getElementById('outputLink');
             if (outputEl) outputEl.value = generatedUrl;
             
-            const waText = `Assalamu'alaikum Wr. Wb.\n\nYth. *${input}*,\n\nTanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara Syukuran Khitanan putra kami:\n\n*Muhammad Arshaka Salim (Shaka)*\n\n📅 *Hari/Tanggal:* Minggu, 15 November 2026\n⏰ *Waktu:* 08.00 WIB s/d Selesai\n📍 *Tempat:* Kp. Selaeurih RT 12 RW 04, Desa Bunder, Kec. Jatiluhur, Kab. Purwakarta (Seberang Poltek Jatiluhur)\n\nBerikut link undangan digital selengkapnya:\n${generatedUrl}\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.\n\nTerima kasih.\nWassalamu'alaikum Wr. Wb.`;
+            const waText = `Assalamu'alaikum Wr. Wb.\n\nYth. *${input}*,\n\nTanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara Syukuran Khitanan putra kami:\n\n*Muhammad Arshaka Salim (Shaka)*\n\n📅 *Hari/Tanggal:* Minggu, 15 November 2026\n⏰ *Waktu:* 08.00 WIB s/d Selesai\n📍 *Tempat:* Kp. Selaeurih RT 13 / RW 04, Desa Bunder, Kec. Jatiluhur, Kab. Purwakarta (Seberang Poltek Jatiluhur)\n\nBerikut link undangan digital selengkapnya:\n${generatedUrl}\n\nMerupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.\n\nTerima kasih.\nWassalamu'alaikum Wr. Wb.`;
             
             const waBtn = document.getElementById('waShareBtn');
             if (waBtn) waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(waText)}`;
