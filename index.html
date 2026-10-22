@@ -77,8 +77,8 @@
     <!-- Container Utama Simulasi Mobile Viewport -->
     <div class="w-full max-w-md bg-creamCustom min-h-screen relative shadow-2xl overflow-x-hidden pb-20">
 
-        <!-- Floating Admin Tool Button -->
-        <button onclick="toggleAdminModal()" class="fixed top-4 right-4 z-40 bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2 text-xs font-semibold" title="Buat Link Nama Tamu">
+        <!-- Floating Admin Tool Button (Ditambahkan id="adminBtn") -->
+        <button id="adminBtn" onclick="toggleAdminModal()" class="fixed top-4 right-4 z-40 bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2 text-xs font-semibold" title="Buat Link Nama Tamu">
             <i class="fa-solid fa-link text-base"></i>
             <span class="hidden sm:inline">Buat Link Tamu</span>
         </button>
@@ -416,9 +416,20 @@
         function getGuestNameFromURL() {
             const urlParams = new URLSearchParams(window.location.search);
             const nameParam = urlParams.get('to') || urlParams.get('tamu') || urlParams.get('nama');
+            const adminBtn = document.getElementById('adminBtn');
             
             if (nameParam && nameParam.trim() !== '') {
                 guestName = nameParam.trim();
+                
+                // 🔒 Jika ada parameter nama tamu -> SEMBUNYIKAN tombol generator link
+                if (adminBtn) {
+                    adminBtn.classList.add('hidden');
+                }
+            } else {
+                // 🔓 Jika TIDAK ada parameter nama tamu -> TAMPILKAN tombol generator link
+                if (adminBtn) {
+                    adminBtn.classList.remove('hidden');
+                }
             }
 
             const guestNameCoverEl = document.getElementById('guestNameCover');
