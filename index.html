@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#064e3b">
+    <meta name="theme-color" content="#4c0519">
     <title>Undangan Syukuran Khitanan — Muhammad Arshaka Salim (Shaka)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -19,8 +19,9 @@
             theme: {
                 extend: {
                     colors: {
-                        emeraldCustom: '#064e3b',
-                        emeraldLight: '#047857',
+                        maroonCustom: '#4c0519',
+                        maroonDark: '#380210',
+                        maroonLight: '#881337',
                         goldCustom: '#d97706',
                         goldLight: '#fbbf24',
                         creamCustom: '#fdfbf7',
@@ -43,7 +44,7 @@
             background: #f1f1f1;
         }
         ::-webkit-scrollbar-thumb {
-            background: #047857;
+            background: #881337;
             border-radius: 10px;
         }
         
@@ -69,7 +70,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-900 font-sans text-slate-800 antialiased selection:bg-emeraldLight selection:text-white min-h-screen flex justify-center">
+<body class="bg-slate-900 font-sans text-slate-800 antialiased selection:bg-rose-900 selection:text-white min-h-screen flex justify-center">
 
     <!-- Audio Element untuk file music.mp3 -->
     <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
@@ -77,7 +78,7 @@
     <!-- Container Utama Simulasi Mobile Viewport -->
     <div class="w-full max-w-md bg-creamCustom min-h-screen relative shadow-2xl overflow-x-hidden pb-20">
 
-        <!-- Floating Admin Tool Button (Ditambahkan id="adminBtn") -->
+        <!-- Floating Admin Tool Button -->
         <button id="adminBtn" onclick="toggleAdminModal()" class="fixed top-4 right-4 z-40 bg-amber-500 hover:bg-amber-600 text-white p-3 rounded-full shadow-lg transition-all transform hover:scale-105 flex items-center gap-2 text-xs font-semibold" title="Buat Link Nama Tamu">
             <i class="fa-solid fa-link text-base"></i>
             <span class="hidden sm:inline">Buat Link Tamu</span>
@@ -90,18 +91,18 @@
                     <i class="fa-solid fa-xmark text-xl"></i>
                 </button>
                 <div class="text-center mb-4">
-                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto mb-2 text-xl">
+                    <div class="w-12 h-12 bg-rose-100 text-rose-900 rounded-full flex items-center justify-center mx-auto mb-2 text-xl">
                         <i class="fa-solid fa-user-gear"></i>
                     </div>
-                    <h3 class="font-bold text-lg text-emerald-900">Generator Link Undangan</h3>
+                    <h3 class="font-bold text-lg text-rose-950">Generator Link Undangan</h3>
                     <p class="text-xs text-gray-500">Buat link khusus dengan nama tamu secara otomatis</p>
                 </div>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-medium text-gray-700 mb-1">Nama Tamu Undangan</label>
-                        <input type="text" id="inputNamaTamu" placeholder="Contoh: Budi Santoso & Keluarga" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <input type="text" id="inputNamaTamu" placeholder="Contoh: Budi Santoso & Keluarga" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-rose-800 focus:outline-none">
                     </div>
-                    <button onclick="generateGuestLink()" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-medium py-2.5 rounded-lg text-sm transition-all shadow-md flex items-center justify-center gap-2">
+                    <button onclick="generateGuestLink()" class="w-full bg-rose-900 hover:bg-rose-950 text-white font-medium py-2.5 rounded-lg text-sm transition-all shadow-md flex items-center justify-center gap-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
                         Buat Link Undangan
                     </button>
@@ -124,7 +125,7 @@
         </div>
 
         <!-- COVER / SAMPUL UTAMA -->
-        <div id="coverScreen" class="fixed inset-0 z-40 max-w-md mx-auto bg-gradient-to-b from-emerald-950 via-emerald-900 to-emerald-950 text-white flex flex-col justify-between items-center p-8 transition-transform duration-1000 ease-in-out">
+        <div id="coverScreen" class="fixed inset-0 z-40 max-w-md mx-auto bg-gradient-to-b from-rose-950 via-rose-900 to-rose-950 text-white flex flex-col justify-between items-center p-8 transition-transform duration-1000 ease-in-out">
             <div class="absolute inset-4 border border-amber-400/30 rounded-2xl pointer-events-none"></div>
 
             <div class="text-center pt-8 z-10">
@@ -142,13 +143,13 @@
                 <div>
                     <h2 class="font-script text-4xl text-amber-300 leading-tight">Muhammad Arshaka Salim</h2>
                     <p class="text-xs text-amber-200 font-semibold tracking-wider uppercase mt-1">(Shaka)</p>
-                    <p class="text-xs text-emerald-200 mt-2">Putra dari Bp. Anwar Salim & Ibu Reza Febriana (Resa)</p>
+                    <p class="text-xs text-rose-200 mt-2">Putra dari Bp. Anwar Salim & Ibu Reza Febriana (Resa)</p>
                 </div>
 
                 <div class="mt-6 bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 shadow-inner">
-                    <p class="text-xs text-emerald-200 uppercase tracking-widest font-light mb-1">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                    <p class="text-xs text-rose-200 uppercase tracking-widest font-light mb-1">Kepada Yth. Bapak/Ibu/Saudara/i:</p>
                     <h3 id="guestNameCover" class="text-lg font-bold text-amber-200">Nama Tamu</h3>
-                    <p class="text-[10px] text-emerald-300/80 mt-1 italic">*Mohon maaf bila ada kesalahan penulisan nama/gelar</p>
+                    <p class="text-[10px] text-rose-300/80 mt-1 italic">*Mohon maaf bila ada kesalahan penulisan nama/gelar</p>
                 </div>
             </div>
 
@@ -161,21 +162,21 @@
         </div>
 
         <!-- Music Toggle Floating Button -->
-        <button id="musicToggle" onclick="toggleAudio()" class="fixed bottom-20 right-4 z-30 bg-emerald-800/90 text-amber-300 border border-amber-400/40 p-3 rounded-full shadow-xl transition-all hidden flex items-center justify-center w-12 h-12">
+        <button id="musicToggle" onclick="toggleAudio()" class="fixed bottom-20 right-4 z-30 bg-rose-950/90 text-amber-300 border border-amber-400/40 p-3 rounded-full shadow-xl transition-all hidden flex items-center justify-center w-12 h-12">
             <i id="musicIcon" class="fa-solid fa-music animate-bounce"></i>
         </button>
 
         <!-- HERO / HEADER SECTION -->
-        <section id="home" class="relative pt-12 pb-16 px-6 text-center bg-gradient-to-b from-emerald-900 via-emerald-800 to-creamCustom text-white rounded-b-[2.5rem] shadow-xl overflow-hidden">
+        <section id="home" class="relative pt-12 pb-16 px-6 text-center bg-gradient-to-b from-rose-950 via-rose-900 to-creamCustom text-white rounded-b-[2.5rem] shadow-xl overflow-hidden">
             <div class="relative z-10 space-y-4">
                 <p class="text-xs uppercase tracking-widest text-amber-300 font-semibold">WALIMATUL KHITAN</p>
                 <div class="font-arabic text-3xl text-amber-300 py-2">
                     بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
                 </div>
-                <p class="text-xs text-emerald-100 max-w-xs mx-auto leading-relaxed">
+                <p class="text-xs text-rose-100 max-w-xs mx-auto leading-relaxed">
                     "Assalamu'alaikum Warahmatullahi Wabarakatuh"
                 </p>
-                <p class="text-xs text-emerald-200/90 max-w-xs mx-auto leading-relaxed font-light">
+                <p class="text-xs text-rose-200/90 max-w-xs mx-auto leading-relaxed font-light">
                     Dengan memohon rahmat dan ridho Allah SWT, kami mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara syukuran khitanan putra kami:
                 </p>
 
@@ -183,11 +184,11 @@
                     <img src="https://luthfiyahs.github.io/undangan-digital/pict.jpeg" alt="Foto Shaka" class="w-32 h-32 rounded-full border-4 border-amber-400 shadow-xl mx-auto object-cover">
                     <h2 class="font-script text-4xl text-amber-300 mt-4 font-bold">Muhammad Arshaka Salim</h2>
                     <p class="text-xs font-semibold text-amber-200 uppercase tracking-widest mt-0.5">(Shaka)</p>
-                    <p class="text-xs font-medium text-emerald-100 mt-2">Putra dari</p>
+                    <p class="text-xs font-medium text-rose-100 mt-2">Putra dari</p>
                     <p class="text-sm font-semibold text-amber-200">Bpk. Anwar Salim & Ibu Reza Febriana (Resa)</p>
                 </div>
 
-                <a href="#rsvp" class="inline-block bg-amber-500 hover:bg-amber-600 text-emerald-950 font-semibold px-6 py-2.5 rounded-full text-xs shadow-md transition-all">
+                <a href="#rsvp" class="inline-block bg-amber-500 hover:bg-amber-600 text-rose-950 font-semibold px-6 py-2.5 rounded-full text-xs shadow-md transition-all">
                     Konfirmasi Kehadiran
                 </a>
             </div>
@@ -195,16 +196,16 @@
 
         <!-- DOA & COUNTDOWN SECTION -->
         <section class="px-6 py-6 space-y-4">
-            <div class="bg-white rounded-2xl p-5 shadow-sm border border-emerald-900/10 text-center relative overflow-hidden">
+            <div class="bg-white rounded-2xl p-5 shadow-sm border border-rose-900/10 text-center relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-2 h-full bg-amber-500"></div>
                 <p class="text-xs text-slate-600 italic leading-relaxed">
                     "Ya Allah, muliakanlah anak kami ini, panjangkanlah umurnya, terangilah hatinya, teguhkanlah imannya, dan lapangkanlah rezekinya."
                 </p>
-                <p class="text-[11px] text-emerald-800 font-semibold mt-2">— Doa Syukuran Khitan —</p>
+                <p class="text-[11px] text-rose-900 font-semibold mt-2">— Doa Syukuran Khitan —</p>
             </div>
 
             <!-- Countdown Timer Card -->
-            <div class="bg-gradient-to-r from-emerald-800 to-emerald-900 rounded-2xl p-5 text-white text-center shadow-lg">
+            <div class="bg-gradient-to-r from-rose-900 to-rose-950 rounded-2xl p-5 text-white text-center shadow-lg border border-amber-500/20">
                 <p class="text-xs uppercase tracking-widest text-amber-300 font-semibold mb-2">SAVE THE DATE</p>
                 <p class="text-sm font-bold text-amber-100 mb-3">Minggu, 15 November 2026</p>
 
@@ -218,27 +219,27 @@
         <section id="acara" class="px-6 py-6 space-y-4">
             <div class="text-center mb-4">
                 <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Rangkaian Acara</span>
-                <h3 class="text-2xl font-bold text-emerald-950 font-serif">Waktu & Lokasi</h3>
+                <h3 class="text-2xl font-bold text-rose-950 font-serif">Waktu & Lokasi</h3>
                 <div class="w-12 h-1 bg-amber-500 mx-auto mt-1 rounded-full"></div>
             </div>
 
             <!-- Acara Syukuran Card -->
             <div class="bg-white rounded-2xl p-5 shadow-md border border-slate-100 space-y-3 relative overflow-hidden">
                 <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-lg">
+                    <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-900 flex items-center justify-center text-lg">
                         <i class="fa-solid fa-hands-praying"></i>
                     </div>
                     <div>
-                        <h4 class="font-bold text-emerald-950 text-sm">Syukuran Khitanan</h4>
-                        <p class="text-xs text-emerald-700 font-medium">Walimatul Khitan</p>
+                        <h4 class="font-bold text-rose-950 text-sm">Syukuran Khitanan</h4>
+                        <p class="text-xs text-rose-800 font-medium">Walimatul Khitan</p>
                     </div>
                 </div>
 
                 <div class="text-xs text-gray-600 pt-2 border-t border-gray-100 space-y-2">
-                    <p><i class="fa-regular fa-calendar-check text-emerald-600 w-4"></i> <strong>Minggu, 15 November 2026</strong></p>
-                    <p><i class="fa-regular fa-clock text-emerald-600 w-4"></i> 08.00 WIB s/d Selesai</p>
+                    <p><i class="fa-regular fa-calendar-check text-rose-800 w-4"></i> <strong>Minggu, 15 November 2026</strong></p>
+                    <p><i class="fa-regular fa-clock text-rose-800 w-4"></i> 08.00 WIB s/d Selesai</p>
                     <p><i class="fa-solid fa-music text-amber-600 w-4"></i> Hiburan: <strong>Organ Tunggal</strong></p>
-                    <p><i class="fa-solid fa-location-dot text-emerald-600 w-4"></i> <strong>Lokasi Acara:</strong><br><span class="pl-5 block text-gray-700 font-medium">Kp. Selaeurih RT 12 RW 04, Desa Bunder, Kec. Jatiluhur, Kab. Purwakarta (Sebrang Poltek Jatiluhur)</span></p>
+                    <p><i class="fa-solid fa-location-dot text-rose-800 w-4"></i> <strong>Lokasi Acara:</strong><br><span class="pl-5 block text-gray-700 font-medium">Kp. Selaeurih RT 12 RW 04, Desa Bunder, Kec. Jatiluhur, Kab. Purwakarta (Sebrang Poltek Jatiluhur)</span></p>
                 </div>
 
                 <!-- Google Maps Embed -->
@@ -246,7 +247,7 @@
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d476.7517128405203!2d107.42895377023972!3d-6.553298286789686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e690ef7e4f1872b%3A0xc350cfa5864c70ea!2sMetro%20Pearl%20Indonesia%20Pt.%2C%20Bunder%2C%20Kec.%20Jatiluhur%2C%20Kabupaten%20Purwakarta%2C%20Jawa%20Barat%2041161!5e0!3m2!1sen!2sid!4v1792630193312!5m2!1sen!2sid" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                 </div>
 
-                <a href="https://maps.app.goo.gl/8cJQFry3qoUwNC1v5" target="_blank" rel="noopener" class="mt-3 w-full bg-emerald-800 hover:bg-emerald-900 text-white font-medium py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow transition-all">
+                <a href="https://maps.app.goo.gl/8cJQFry3qoUwNC1v5" target="_blank" rel="noopener" class="mt-3 w-full bg-rose-900 hover:bg-rose-950 text-white font-medium py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow transition-all">
                     <i class="fa-solid fa-map-location-dot"></i>
                     Buka Google Maps
                 </a>
@@ -257,7 +258,7 @@
         <section id="galeri" class="px-6 py-6 space-y-4">
             <div class="text-center mb-4">
                 <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Galeri Momen</span>
-                <h3 class="text-2xl font-bold text-emerald-950 font-serif">Foto Ananda Shaka</h3>
+                <h3 class="text-2xl font-bold text-rose-950 font-serif">Foto Ananda Shaka</h3>
                 <div class="w-12 h-1 bg-amber-500 mx-auto mt-1 rounded-full"></div>
             </div>
 
@@ -273,12 +274,12 @@
 
                 <!-- Foto 2 -->
                 <div class="relative group overflow-hidden rounded-xl border border-amber-400/40 shadow-md">
-                    <img src="https://luthfiyahs.github.io/undangan-digital/pict2.jpeg" alt="Momen Shaka 2" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform duration-500" onerror="this.src='pict.jpeg'">
+                    <img src="https://luthfiyahs.github.io/undangan-digital/pict2.jpeg" alt="Momen Shaka 2" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://luthfiyahs.github.io/undangan-digital/pict.jpeg'">
                 </div>
 
                 <!-- Foto 3 -->
                 <div class="relative group overflow-hidden rounded-xl border border-amber-400/40 shadow-md">
-                    <img src="https://luthfiyahs.github.io/undangan-digital/pict3.jpeg" alt="Momen Shaka 3" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform duration-500" onerror="this.src='pict.jpeg'">
+                    <img src="https://luthfiyahs.github.io/undangan-digital/pict3.jpeg" alt="Momen Shaka 3" class="w-full h-36 object-cover transform group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://luthfiyahs.github.io/undangan-digital/pict.jpeg'">
                 </div>
             </div>
         </section>
@@ -289,44 +290,60 @@
                 <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center mx-auto mb-2 text-lg">
                     <i class="fa-solid fa-gift"></i>
                 </div>
-                <h3 class="text-lg font-bold text-emerald-950 font-serif">Amplop Digital</h3>
+                <h3 class="text-lg font-bold text-rose-950 font-serif">Amplop Digital</h3>
                 <p class="text-xs text-gray-500 mt-1 mb-4">Doa restu Anda merupakan karunia terbesar bagi kami. Namun jika ingin memberikan tanda kasih, Anda dapat mengalirkan hadiah melalui:</p>
 
-                <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-4 text-left shadow-md mb-3">
+                <!-- Rekening 1: BCA -->
+                <div class="bg-gradient-to-r from-rose-950 to-rose-900 text-white rounded-xl p-4 text-left shadow-md mb-3 border border-amber-500/30">
                     <div class="flex justify-between items-center mb-2">
-                        <span class="font-bold text-amber-400 text-xs">BANK BCA</span>
-                        <i class="fa-solid fa-credit-card text-gray-400 text-sm"></i>
+                        <span class="font-bold text-amber-300 text-xs">BANK BCA</span>
+                        <i class="fa-solid fa-credit-card text-amber-400/70 text-sm"></i>
                     </div>
-                    <p class="text-[10px] text-gray-400 uppercase">Nomor Rekening</p>
-                    <p class="font-mono text-sm font-bold text-white tracking-wider my-0.5" id="rekBCA">1234567890</p>
-                    <p class="text-xs text-amber-200">a.n. Anwar Salim</p>
-                    <button onclick="copyToClipboard('rekBCA', 'Nomor Rekening BCA')" class="mt-2 w-full bg-amber-500 hover:bg-amber-600 text-emerald-950 text-xs font-semibold py-1.5 rounded-lg transition-all flex items-center justify-center gap-2">
+                    <p class="text-[10px] text-rose-200/80 uppercase">Nomor Rekening</p>
+                    <p class="font-mono text-sm font-bold text-amber-200 tracking-wider my-0.5" id="rekBCA">2310693629</p>
+                    <p class="text-xs text-rose-100 font-medium">a.n. Reza Febriana</p>
+                    <button onclick="copyToClipboard('rekBCA', 'Nomor Rekening BCA')" class="mt-2.5 w-full bg-amber-500 hover:bg-amber-600 text-rose-950 text-xs font-semibold py-1.5 rounded-lg transition-all flex items-center justify-center gap-2 shadow">
                         <i class="fa-solid fa-copy"></i>
-                        Salin No. Rekening
+                        Salin No. Rekening BCA
+                    </button>
+                </div>
+
+                <!-- Rekening 2: SeaBank -->
+                <div class="bg-gradient-to-r from-rose-950 to-rose-900 text-white rounded-xl p-4 text-left shadow-md border border-amber-500/30">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-amber-300 text-xs">SEABANK</span>
+                        <i class="fa-solid fa-building-columns text-amber-400/70 text-sm"></i>
+                    </div>
+                    <p class="text-[10px] text-rose-200/80 uppercase">Nomor Rekening</p>
+                    <p class="font-mono text-sm font-bold text-amber-200 tracking-wider my-0.5" id="rekSeaBank">901961959501</p>
+                    <p class="text-xs text-rose-100 font-medium">a.n. Anwar Salim</p>
+                    <button onclick="copyToClipboard('rekSeaBank', 'Nomor Rekening SeaBank')" class="mt-2.5 w-full bg-amber-500 hover:bg-amber-600 text-rose-950 text-xs font-semibold py-1.5 rounded-lg transition-all flex items-center justify-center gap-2 shadow">
+                        <i class="fa-solid fa-copy"></i>
+                        Salin No. Rekening SeaBank
                     </button>
                 </div>
             </div>
         </section>
 
         <!-- RSVP & UCAPAN SECTION -->
-        <section id="rsvp" class="px-6 py-8 bg-emerald-900 text-white rounded-t-3xl shadow-inner">
+        <section id="rsvp" class="px-6 py-8 bg-rose-950 text-white rounded-t-3xl shadow-inner">
             <div class="text-center mb-6">
                 <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">RSVP</span>
                 <h3 class="text-2xl font-bold text-amber-100 font-serif">Konfirmasi Kehadiran</h3>
-                <p class="text-xs text-emerald-200/80 mt-1">Mohon isi form berikut untuk membantu kami mempersiapkan acara.</p>
+                <p class="text-xs text-rose-200/80 mt-1">Mohon isi form berikut untuk membantu kami mempersiapkan acara.</p>
                 <div class="w-12 h-1 bg-amber-500 mx-auto mt-2 rounded-full"></div>
             </div>
 
             <!-- RSVP Form Integration -->
-            <form id="rsvpForm" class="space-y-4 bg-emerald-950/60 p-5 rounded-2xl border border-emerald-700/50">
+            <form id="rsvpForm" class="space-y-4 bg-rose-900/40 p-5 rounded-2xl border border-rose-800/50">
                 <div>
-                    <label for="nama" class="block text-xs text-emerald-200 mb-1 font-medium">Nama Lengkap</label>
-                    <input id="nama" name="nama" type="text" maxlength="100" autocomplete="name" required placeholder="Nama Anda" class="w-full px-3 py-2 bg-emerald-900/80 border border-emerald-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <label for="nama" class="block text-xs text-rose-200 mb-1 font-medium">Nama Lengkap</label>
+                    <input id="nama" name="nama" type="text" maxlength="100" autocomplete="name" required placeholder="Nama Anda" class="w-full px-3 py-2 bg-rose-900/80 border border-rose-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
                 </div>
 
                 <div>
-                    <label for="kehadiran" class="block text-xs text-emerald-200 mb-1 font-medium">Konfirmasi Kehadiran</label>
-                    <select id="kehadiran" name="kehadiran" required class="w-full px-3 py-2 bg-emerald-900/80 border border-emerald-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <label for="kehadiran" class="block text-xs text-rose-200 mb-1 font-medium">Konfirmasi Kehadiran</label>
+                    <select id="kehadiran" name="kehadiran" required class="w-full px-3 py-2 bg-rose-900/80 border border-rose-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
                         <option value="">Pilih jawaban</option>
                         <option value="Hadir">Ya, saya akan hadir</option>
                         <option value="Tidak hadir">Maaf, tidak bisa hadir</option>
@@ -334,8 +351,8 @@
                 </div>
 
                 <div>
-                    <label for="jumlah" class="block text-xs text-emerald-200 mb-1 font-medium">Jumlah Tamu</label>
-                    <select id="jumlah" name="jumlah" required class="w-full px-3 py-2 bg-emerald-900/80 border border-emerald-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
+                    <label for="jumlah" class="block text-xs text-rose-200 mb-1 font-medium">Jumlah Tamu</label>
+                    <select id="jumlah" name="jumlah" required class="w-full px-3 py-2 bg-rose-900/80 border border-rose-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400">
                         <option value="1">1 orang</option>
                         <option value="2">2 orang</option>
                         <option value="3">3 orang</option>
@@ -345,11 +362,11 @@
                 </div>
 
                 <div>
-                    <label for="pesan" class="block text-xs text-emerald-200 mb-1 font-medium">Ucapan atau doa (opsional)</label>
-                    <textarea id="pesan" name="pesan" maxlength="500" rows="3" placeholder="Tuliskan doa atau ucapan selamat untuk Ananda Shaka..." class="w-full px-3 py-2 bg-emerald-900/80 border border-emerald-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
+                    <label for="pesan" class="block text-xs text-rose-200 mb-1 font-medium">Ucapan atau doa (opsional)</label>
+                    <textarea id="pesan" name="pesan" maxlength="500" rows="3" placeholder="Tuliskan doa atau ucapan selamat untuk Ananda Shaka..." class="w-full px-3 py-2 bg-rose-900/80 border border-rose-700 rounded-lg text-sm text-white focus:outline-none focus:ring-2 focus:ring-amber-400"></textarea>
                 </div>
 
-                <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-emerald-950 font-bold py-3 rounded-lg text-sm transition-all shadow-md">
+                <button id="submitBtn" type="submit" class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-rose-950 font-bold py-3 rounded-lg text-sm transition-all shadow-md">
                     Kirim RSVP
                 </button>
 
@@ -364,19 +381,19 @@
                 </h4>
 
                 <div id="ucapanContainer" class="space-y-3 max-h-60 overflow-y-auto pr-1">
-                    <p class="text-center text-xs text-emerald-200/80">Memuat ucapan...</p>
+                    <p class="text-center text-xs text-rose-200/80">Memuat ucapan...</p>
                 </div>
             </div>
         </section>
 
         <!-- FOOTER -->
-        <footer class="bg-emerald-950 text-center py-6 px-4 text-emerald-400/80 text-xs border-t border-emerald-800">
+        <footer class="bg-rose-950 text-center py-6 px-4 text-rose-300/80 text-xs border-t border-rose-900">
             <p class="mb-1">Terima kasih atas doa dan restunya ❤️</p>
             <p class="font-semibold text-amber-300 mt-1">Keluarga Bpk. Anwar Salim & Ibu Reza Febriana (Resa) · 2026</p>
         </footer>
 
         <!-- BOTTOM NAV BAR -->
-        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-emerald-950/95 backdrop-blur-md border-t border-emerald-800/80 z-30 flex justify-around py-2 text-emerald-300 text-center">
+        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-rose-950/95 backdrop-blur-md border-t border-rose-900/80 z-30 flex justify-around py-2 text-rose-200 text-center">
             <a href="#home" class="flex flex-col items-center text-[10px] hover:text-amber-300 transition-colors">
                 <i class="fa-solid fa-house text-base mb-0.5"></i>
                 Home
@@ -503,7 +520,6 @@
                 } catch (error) {
                     console.error("Error POST RSVP:", error);
                     if (statusText) statusText.textContent = "Pengiriman gagal. Silakan periksa koneksi internet Anda.";
-                } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = "Kirim RSVP";
                 }
@@ -544,11 +560,11 @@
                 const validUcapan = result.data.filter(item => item.pesan && item.pesan.trim() !== "");
 
                 if (validUcapan.length === 0) {
-                    container.innerHTML = `<p class="text-center text-xs text-emerald-200/80">Belum ada ucapan. Jadilah yang pertama memberikan doa!</p>`;
+                    container.innerHTML = `<p class="text-center text-xs text-rose-200/80">Belum ada ucapan. Jadilah yang pertama memberikan doa!</p>`;
                 } else {
                     validUcapan.forEach(item => {
                         const card = document.createElement("div");
-                        card.className = "bg-emerald-950/80 p-3 rounded-xl border border-amber-500/40 text-xs space-y-1";
+                        card.className = "bg-rose-900/80 p-3 rounded-xl border border-amber-500/40 text-xs space-y-1";
 
                         const header = document.createElement("div");
                         header.className = "flex justify-between items-center";
@@ -564,11 +580,11 @@
                         header.append(nama, status);
 
                         const pesan = document.createElement("p");
-                        pesan.className = "text-emerald-100/90 font-light";
+                        pesan.className = "text-rose-100/90 font-light";
                         pesan.textContent = item.pesan;
 
                         const waktu = document.createElement("span");
-                        waktu.className = "text-[9px] text-emerald-400 block text-right";
+                        waktu.className = "text-[9px] text-amber-300/80 block text-right";
                         waktu.textContent = item.waktu || "";
 
                         card.append(header, pesan, waktu);
